@@ -13,7 +13,7 @@ export default defineComponent({
     msg: String,
   },
   setup() {
-    console.log('process :>> ', process);
+    // console.log('process :>> ', process);
   },
 });
 </script>

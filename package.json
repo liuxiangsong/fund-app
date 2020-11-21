@@ -13,14 +13,18 @@
   },
   "main": "background.js",
   "dependencies": {
+    "axios": "^0.21.0",
+    "cheerio": "^1.0.0-rc.3",
     "core-js": "^3.6.5",
+    "dayjs": "^1.9.6",
+    "electron": "^9.3.4",
     "nedb-promises": "^4.1.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0",
-    "electron": "^9.3.4"
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.22",
     "@types/electron-devtools-installer": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
