@@ -18,7 +18,11 @@ class dao {
     });
   }
 
-  async findData() {
+  /**
+   * 查找数据
+   * @param options 查询条件
+   */
+  async findData(options: object = {}): Promise<any[] | undefined> {
     try {
       // this.db.insert([{ fundCode: 8888, createDate: dayjs().add(5, 'day').format('YYYY-MM-DD') }])
       //   .then((res) => {
@@ -28,7 +32,7 @@ class dao {
       //   .then((res) => {
       //     console.log('resse3 :>> ', res);
       //   });
-      let res = await this.db.find({});
+      let res = await this.db.find(options);
       // console.log('doc :>> ', res);
       return res;
     } catch (ex) {

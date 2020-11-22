@@ -3,21 +3,37 @@ import dayjs from 'dayjs'
 
 class FundApi {
   private fundCode
-  constructor(fundCode: string) {
+  constructor(fundCode: string = '') {
     this.fundCode = fundCode
   }
 
   /**
+   * 基金查询
+   * @param queryString 查询字符串
+   */
+  async searchFund(queryString: string): Promise<FundSearchResult[] | undefined> {
+    const url = `https://danjuanapp.com/djapi/v2/search?key=${queryString}&xq_access_token=c2974070ad952835feab798d5278f70696c9f25c&source=index`;
+    const res: any = await request(encodeURI(url));
+    if (res.result_code === 0) {
+      return res.data.items.map((i: any) => ({
+        code: i.scode,
+        name: i.sname,
+        type: i.stype,
+        yieldOfLastYear: i.yield
+      }))
+    }
+  }
+  /**
    * 获取基金的全部信息
    */
-  async getFundAllInfo() {
+  async getFundAllInfo(): Promise<FundInfo | undefined> {
     let promiseList: Promise<any>[] = []
     promiseList.push(this.getFundBaseInfo())
     promiseList.push(this.getFundManagers())
     promiseList.push(this.getFundPosition())
     let values: any[] = await Promise.all(promiseList)
     if (values.some(v => !v || v.length < 1)) {
-      return null
+      return
     }
     return { baseInfo: values[0], managers: values[1], position: values[2] }
   }
@@ -39,7 +55,7 @@ class FundApi {
           foundType: data.op_fund.fund_tags.map((t: any) => t.name).join('-'),
           managerName: data.manager_name,
           fundSize: data.totshare,
-          rating: data.rating,
+          rating: Number(data.rating),
           netValue: Number(data.fund_derived.unit_nav)
         };
         // console.log('getFundInfo :>> ', result);
