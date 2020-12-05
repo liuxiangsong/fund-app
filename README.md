@@ -1,4 +1,6 @@
-# vue3-demo
+# fund-app
+
+## 技术栈：Electron+vue3+TypeScript+NeDB
 
 ## Project setup
 
